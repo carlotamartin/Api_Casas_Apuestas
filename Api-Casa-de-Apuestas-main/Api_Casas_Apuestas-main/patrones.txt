@@ -1,0 +1,97 @@
+Los distintos tipos de patrones se identificaran en este fichero.
+Los 8 diferentes patrones son:
+
+-COMMAND:
+
+-FACTORY_METHOD: \utils\logger.py
+
+-DECORATOR: - \services\decorators.py( @property)
+            - \validate\validate_apuesta.py( @property)
+            - \validate\validate_cliente.py( @property)
+            - \validate\validate_cuota.py( @property)
+            - \validate\validate_equipo.py( @property)
+            - \validate\validate_partido.py( @property)
+
+
+            - \repositories\repositorio.py (@propierty)
+            - \repositories\repositoriocliente.py (@propierty)
+            - \repositories\repositoriocuota.py (@propierty)
+            - \repositories\repositorioempresa.py (@propierty)
+            - \repositories\repositorioequipo.py (@propierty)
+            - \repositories\repositoriopartido.py (@propierty)
+
+
+            - \models\apuesta.py (@hybrid_property)
+            - \models\cliente.py (@hybrid_property)
+            - \models\cuota.py (@hybrid_property)
+            - \models\empresa.py (@hybrid_property)
+            - \models\equipo.py (@hybrid_property)
+            - \models\partido.py (@hybrid_property)
+
+            - \validate\validate_apuesta.py\validate_apuesta (@validate_cliente.validar_cliente())
+            - \validate\validate_apuesta.py\validate_apuesta (@validate_equipo.validar_equipo())
+            - \validate\validate_apuesta.py\validate_apuesta (@self.validar_monto())
+            - \validate\validate_apuesta.py\validate_apuesta (@validate_partido.validar_partido())
+            - \validate\validate_apuesta.py\validate_apuesta (@validate_partido.validar_partido_finalizado())
+
+            - \controllers\apuesta.py (@validate_apuesta.validar_apuesta_existe())
+            - \controllers\apuesta.py (@validate_apuesta.validar_apuesta())
+            - \controllers\cuota.py(@validate_cuota.validar_cuota())
+            - \controllers\equipos.py (@validate_equipo.validar_equipos())
+            - \controllers\partidos.py (@validate_partido.validar_partido())
+            - \controllers\partidos.py (@validate_equipo.validar_equipos())
+
+            -\map\apuesta_schema.py(@post_load, @post_dump)
+            -\map\cliente_schema.py(@post_load)
+            -\map\cuota_schema.py(@post_load, @post_dump)
+            -\map\empresa_schema.py(@post_load)
+            -\map\equipo_schema.py(@post_load, @post_dump)
+            -\map\partido_schema.py(@post_load, @post_dump)
+
+
+-ADAPTER: - \repositories\repositoriopartido.py
+
+-QUERY OBJECT (Patrón estructural): -\controllers\apuesta.py
+                                    -\controllers\clientes.py
+                                    -\controllers\cuota.py
+                                    -\controllers\partidos.py
+
+-Data Access Object (DAO)(Patrón estructural):  -\models\apuesta.py
+                                                -\models\cliente.py
+                                                -\models\couta.py
+                                                -\models\empresa.py
+                                                -\models\equipo.py
+                                                -\models\partido.py
+
+                                                -\repositories\repositoriocliente.py
+                                                -\repositories\repositorioempresa.py
+                                                -\repositories\repositorioequipo.py
+                                                -\repositories\repositoriopartido.py
+
+-OBSERVER:  -\mail\functions.py
+
+-STRATEGY:  -\services\apuesta.py (CuotaStrategy())
+
+-SINGLETON: - \services\decorators.py
+            - \utils\singleton.py(@staticmethod)
+            - \repositories\repositorioapuesta.py (@singleton_pattern.singleton)
+
+-ABSTRACT_FACTORY:
+            - \services\apuesta.py
+            - \repositories\repositorioapuesta.py (@abstractmethod)
+            - \repositories\repositoriobase.py (@abstractmethod)
+
+
+-Builder (constructor):
+            -/models/apuesta.py(.setter, .deleter)
+            -/models/cliente.py(.setter, .deleter)
+            -/models/cuota.py(.setter, .deleter)
+            -/models/empresa.py(.setter, .deleter)
+            -/models/equipo.py(.setter, .deleter)
+            -/models/partido.py(.setter, .deleter)
+
+
+
+
+
+
