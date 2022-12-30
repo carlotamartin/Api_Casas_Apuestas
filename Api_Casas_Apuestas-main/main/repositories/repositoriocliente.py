@@ -1,6 +1,6 @@
 from .. import db
 from main.models import ClienteModel
-from .repositoriobase import Create, Read, Delete, Update 
+from .repositoriobase import Create, Read, Delete, Update
 
 
 class ClienteRepositorio(Create, Read, Delete, Update):

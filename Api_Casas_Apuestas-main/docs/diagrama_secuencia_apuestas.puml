@@ -15,7 +15,7 @@ activate ApuestaController
 ApuestaController -> PartidoModel: get(id)
 activate PartidoModel
 PartidoModel -> data: select all
-PartidoModel <- data: registro partidos 
+PartidoModel <- data: registro partidos
 PartidoSchema <- PartidoModel: dump
 deactivate PartidoModel
 activate PartidoSchema
