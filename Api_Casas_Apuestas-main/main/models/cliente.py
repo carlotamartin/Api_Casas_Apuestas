@@ -33,7 +33,7 @@ class Cliente(db.Model):
     @nombre.deleter
     def nombre(self):
         del self.__nombre
-    
+
     @hybrid_property
     def apellido(self):
         return self.__apellido

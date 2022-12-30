@@ -43,7 +43,7 @@ def create_app():
     api.init_app(app)
 
     from main.mail import functions
-    app.register_blueprint(mail.functions.mail)
+    app.register_blueprint(Mail.functions.mail)
 
     app.config['MAIL_HOSTNAME'] = os.getenv('MAIL_HOSTNAME')
     app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
