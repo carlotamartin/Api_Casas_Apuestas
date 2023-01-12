@@ -38,8 +38,34 @@ class ApuestaService:
         return apuesta_repositorio.find_all()
 
 class CuotaStrategy(ABC):
-    def calcular_cuota(self, cuota):
-        """Calcular probabilidad"""
+
+    def calcular_cuota(self, local_id, visitante_id):
+        """Calcular cuotas a partir de id de equipos"""
+        import pickle
+        with open("models/lm.pkl", "rb") as f:
+            lr = pickle.load(f)
+        with open("scalers/pt.pkl", "rb") as f:
+            pt = pickle.load(f)
+
+        # Obtener características de los equipos
+        local_team = self.get_team_features(local_id)
+        away_team = self.get_team_features(visitante_id)
+
+        # Concatenar las características de los equipos
+
+        import numpy as np
+
+        cuota_input = np.concatenate((local_team, away_team), axis=1)
+
+        # Escalar las características
+        cuota_input_scaled = pt.transform(cuota_input)
+
+        # Calcular cuotas
+        cuotas = np.exp(lr.predict(cuota_input_scaled))
+
+        return cuotas
+
+
 
 class CuotaLocal(CuotaStrategy):
     def calcular_cuota(self, cuota):
