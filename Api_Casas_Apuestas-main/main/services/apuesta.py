@@ -37,33 +37,27 @@ class ApuestaService:
     def obtener_apuestas(self):
         return apuesta_repositorio.find_all()
 
+import pickle
+import numpy as np
 class CuotaStrategy(ABC):
+    #En el constructor, descargamos los datos y los preprocesamos
+    def __init__(self):
+        self.scaler = pickle.load(open("scalers/pt.pkl", "rb"))
+        self.model = pickle.load(open("models/lm.pkl", "rb"))
 
+    #En el método calcular_cuota, recibimos los ids de los equipos y devolvemos las cuotas
     def calcular_cuota(self, local_id, visitante_id):
-        """Calcular cuotas a partir de id de equipos"""
-        import pickle
-        with open("models/lm.pkl", "rb") as f:
-            lr = pickle.load(f)
-        with open("scalers/pt.pkl", "rb") as f:
-            pt = pickle.load(f)
 
-        # Obtener características de los equipos
-        local_team = self.get_team_features(local_id)
-        away_team = self.get_team_features(visitante_id)
+        data = [[local_id, visitante_id]]
 
-        # Concatenar las características de los equipos
+        #Estandarizamos los datos
+        data_scaled = self.scaler.transform(data)
 
-        import numpy as np
+        # Hacemos la exponencial para que nos devuelta el valor real de la cuota
+        cuotas_pred = np.exp(self.model.predict(data_scaled))
 
-        cuota_input = np.concatenate((local_team, away_team), axis=1)
-
-        # Escalar las características
-        cuota_input_scaled = pt.transform(cuota_input)
-
-        # Calcular cuotas
-        cuotas = np.exp(lr.predict(cuota_input_scaled))
-
-        return cuotas
+        #Nos va a devolver un array de 3 elementos, que son las cuotas de local, empate y visitante
+        return cuotas_pred
 
 
 
